@@ -1,5 +1,12 @@
 import React from 'react';
-import { ActivityIndicator, Dimensions, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Dimensions,
+  FlatList,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MoviePoster } from '../components/MoviePoster';
 import { useMovies } from '../hooks/useMovies';
@@ -19,15 +26,47 @@ export const HomeScreen = () => {
     );
 
   return (
-    <View style={{ marginTop: top + 20 }}>
-      <View style={{ height: 440 }}>
-        <Carousel
-          data={nowPlayingMovies}
-          renderItem={({ item }) => <MoviePoster movie={item} />}
-          sliderWidth={windowWidth}
-          itemWidth={300}
-        />
+    <ScrollView>
+      <View style={{ marginTop: top + 20 }}>
+        <View style={{ height: 440 }}>
+          <Carousel
+            data={nowPlayingMovies}
+            renderItem={({ item }) => <MoviePoster movie={item} />}
+            sliderWidth={windowWidth}
+            itemWidth={300}
+          />
+        </View>
+
+        <View style={{ height: 250 }}>
+          <Text style={{ fontSize: 30, fontWeight: 'bold' }}>
+            Popular Movies
+          </Text>
+          <FlatList
+            data={nowPlayingMovies}
+            renderItem={({ item }) => (
+              <MoviePoster movie={item} width={140} height={200} />
+            )}
+            keyExtractor={item => item.id.toString()}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+          />
+        </View>
+
+        <View style={{ height: 260 }}>
+          <Text style={{ fontSize: 30, fontWeight: 'bold' }}>
+            Popular Movies
+          </Text>
+          <FlatList
+            data={nowPlayingMovies}
+            renderItem={({ item }) => (
+              <MoviePoster movie={item} width={140} height={200} />
+            )}
+            keyExtractor={item => item.id.toString()}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+          />
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
