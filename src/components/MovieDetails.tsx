@@ -1,10 +1,10 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { Cast } from '../interfaces/Credits';
 import { MovieFull } from '../interfaces/Movie';
+import { CastItem } from './CastItem';
 import Icon from 'react-native-vector-icons/Ionicons';
 import currencyFormatter from 'currency-formatter';
-import { CastItem } from './CastItem';
 
 export const MovieDetails = ({ movieFull, cast }: MovieDetailsProps) => {
   return (
@@ -47,7 +47,15 @@ export const MovieDetails = ({ movieFull, cast }: MovieDetailsProps) => {
           }}>
           Actors
         </Text>
-        <CastItem actor={cast[0]} />
+
+        <FlatList
+          style={{ marginTop: 10, height: 70 }}
+          data={cast}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({ item }) => <CastItem actor={item} />}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+        />
       </View>
     </>
   );
