@@ -12,11 +12,12 @@ interface GradientContextProps {
   setPrevMainColors: (colors: ImageColors) => void;
 }
 
-const GradientContext = createContext({} as GradientContextProps);
+export const GradientContext = createContext({} as GradientContextProps);
+
 export const GradientProvider = ({ children }: GradientProviderProps) => {
   const [colors, setColors] = useState<ImageColors>({
-    primary: 'transparent',
-    secondary: 'transparent',
+    primary: 'red',
+    secondary: 'blue',
   });
 
   const [prevColors, setPrevColors] = useState<ImageColors>({
