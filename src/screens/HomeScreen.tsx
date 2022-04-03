@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ActivityIndicator, Dimensions, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MoviePoster } from '../components/MoviePoster';
@@ -6,8 +6,8 @@ import { useMovies } from '../hooks/useMovies';
 import { HorizontalSlider } from '../components/HorizontalSlider';
 import { GradientBackground } from '../components/GradientBackground';
 import { getImageColors } from '../helpers/getImageColors';
-import Carousel from 'react-native-snap-carousel';
 import { GradientContext } from '../context/GradientContext';
+import Carousel from 'react-native-snap-carousel';
 
 const { width: windowWidth } = Dimensions.get('window');
 
@@ -24,6 +24,12 @@ export const HomeScreen = () => {
 
     setMainColors({ primary, secondary });
   };
+
+  useEffect(() => {
+    if (nowPlaying.length > 0) {
+      getPosterColors(0);
+    }
+  }, [nowPlaying]);
 
   if (isLoading)
     return (
